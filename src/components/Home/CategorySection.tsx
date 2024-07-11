@@ -2,6 +2,8 @@ import { ICategory } from '@/type/category.type'
 import React from 'react'
 import ButtonPrimary from '../UI/ButtonPrimary'
 
+import CreateCategory from './CreateCategory'
+
 
 export default function CategorySection() {
 
@@ -24,8 +26,9 @@ export default function CategorySection() {
                 </div>
                 {/* add section */}
                 <div className="flex gap-2">
-                    <ButtonPrimary text="Add Category" color='#FFFFFF'></ButtonPrimary>
-                    <ButtonPrimary text="Add Animal" color='#FFFFFF'></ButtonPrimary>
+
+                    <CreateCategory />
+
                 </div>
             </div>
         </React.Fragment>
