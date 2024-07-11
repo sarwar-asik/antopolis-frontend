@@ -6,7 +6,7 @@ import ButtonSubmit from '../Form/ButtonSubmitUI'
 import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
 
-export default function CreateCategory() {
+export default function CreateAnimal() {
     // const [openModal, setOpenModal] = useState(false);
 
     const [isModalOpen, setModalOpen] = useState(false);
@@ -20,13 +20,14 @@ export default function CreateCategory() {
     return (
         <React.Fragment>
             <p onClick={() => setModalOpen(true)}>
-                <ButtonPrimary text="Add Category" color='#FFFFFF'></ButtonPrimary>
+                <ButtonPrimary text="Add Animal" color='#FFFFFF'></ButtonPrimary>
             </p>
             <ModalUI isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
                 <h2 className='text-2xl font-[500] '>Create Animal</h2>
                 <form onSubmit={handleFormSubmit} className='px-2 py-3'>
-                    <InputUI id='categoryName' label='Category Name' name='categoryName' />
-                    <ButtonSubmit text='Save' color='white' bg='black' />
+                    <InputUI id='animalName' label='Animal Name' name='animalName' />
+                    <InputUI id='image' label='Animal Name' name='image' type='file' />
+                    <ButtonSubmit text='Create Animal' color='white' bg='black' />
                 </form>
             </ModalUI>
         </React.Fragment>

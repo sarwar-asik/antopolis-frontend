@@ -14,7 +14,7 @@ const ModalUI: React.FC<ModalUIProps> = ({ isOpen, onClose, children }) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`absolute w-full rounded-lg bg-white drop-shadow-2xl sm:w-[500px] ${isOpen ? 'opacity-1 translate-y-0 duration-300' : '-translate-y-20 opacity-0 duration-150'}`}
+                className={`absolute w-full rounded-lg bg-white px-2 py-7 drop-shadow-2xl sm:w-[500px] ${isOpen ? 'opacity-1 translate-y-0 duration-300' : '-translate-y-20 opacity-0 duration-150'}`}
             >
                 <svg
                     onClick={onClose}

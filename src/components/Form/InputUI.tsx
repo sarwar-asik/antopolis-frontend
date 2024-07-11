@@ -30,11 +30,11 @@ export default function InputUI({
                 type={type}
                 value={value}
                 onChange={onChange}
-                className="rounded-lg border border-black  bg-[#F2F2F2] px-4 py-3 text-black  w-full  duration-200 outline-none"
+                className="rounded-lg border border-black  bg-[#F2F2F2] px-4 py-4 text-black  w-full  duration-200 outline-none placeholder:text-xl placeholder:text-slate-800"
                 placeholder={label}
             />
 
-            
+
         </div>
     )
 }

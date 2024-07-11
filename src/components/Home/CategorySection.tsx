@@ -3,6 +3,7 @@ import React from 'react'
 import ButtonPrimary from '../UI/ButtonPrimary'
 
 import CreateCategory from './CreateCategory'
+import CreateAnimal from './CreateAnimal'
 
 
 export default function CategorySection() {
@@ -28,7 +29,7 @@ export default function CategorySection() {
                 <div className="flex gap-2">
 
                     <CreateCategory />
-
+                    <CreateAnimal />
                 </div>
             </div>
         </React.Fragment>
