@@ -17,7 +17,7 @@ export default function CategorySection({ categoryData }: { categoryData: ICateg
     // console.log(console.log(categoryData))
     return (
         <React.Fragment >
-            
+
             <Toaster
                 position="top-center"
                 reverseOrder={false}
@@ -36,7 +36,7 @@ export default function CategorySection({ categoryData }: { categoryData: ICateg
                 <div className="flex gap-2">
 
                     <CreateCategory />
-                    <CreateAnimal />
+                    <CreateAnimal categoryData={categoryData} />
                 </div>
             </div>
         </React.Fragment>
