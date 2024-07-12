@@ -8,14 +8,17 @@ import { serverUrl } from '@/helpers/config'
 export interface HomeProps {
     categoryData: { data: ICategory[] };
 }
-async function getAnimalData(categoryId: string) {
-    const res = await fetch(`${serverUrl}/animal/${categoryId}`);
+async function getAnimalData(categoryId: string | null) {
+    const res = await fetch(`${serverUrl}/animal/${categoryId}`, {
+        next: { tags: ['animal'] },
+        cache: 'no-store'
+    });
     console.log(res, "res")
     const result = await res.json();
     return result;
 }
 export default function HomePage({ categoryData }: HomeProps) {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>("all");
     const [animalData, setAnimalData] = useState<any[]>([]);
     console.log(selectedCategoryId)
     useEffect(() => {

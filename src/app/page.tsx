@@ -19,12 +19,12 @@ async function getAnimalData(params: string) {
 export default async function Home() {
 
   const categoryResult = await getCategoryData();
-  const categoryData: { data: ICategory[] } = categoryResult;
+  
 
   // console.log(categoryData)
   return (
     <main className="container mx-auto min-h-screen py-[5rem] px-3">
-      <HomePage categoryData={categoryData}></HomePage>
+      <HomePage categoryData={categoryResult}></HomePage>
     </main>
   );
 }
