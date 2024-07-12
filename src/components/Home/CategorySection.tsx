@@ -14,7 +14,7 @@ export default function CategorySection({ categoryData }: { categoryData: ICateg
     //     { _id: "22", title: "Fist" },
     //     { _id: "3", title: "Insect" },
     // ]
-    console.log(console.log(categoryData))
+    // console.log(console.log(categoryData))
     return (
         <React.Fragment >
             
