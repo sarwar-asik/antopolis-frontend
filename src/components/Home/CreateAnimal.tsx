@@ -43,9 +43,18 @@ export default function CreateAnimal({ categoryData }: { categoryData: ICategory
         };
 
         try {
+            const imageResponse = await uploadImage(image);
+            console.log("🚀 ", imageResponse)
+
+
+            if (!imageResponse) {
+                toast("failed to upload Image");
+                setIsLoading(false);
+                return
+            }
             const responseAnimal = await UsePost("/animal", {
                 ...bodyData,
-                img: await uploadImage(image),
+                img: imageResponse,
             });
 
             if (responseAnimal) {

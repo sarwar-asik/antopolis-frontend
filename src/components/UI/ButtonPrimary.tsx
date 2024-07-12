@@ -5,7 +5,7 @@ export default function ButtonPrimary({ text, color, bg, width, height, extraCla
 }) {
     return (
         <button
-            className={`border px-4 py-2 rounded-[100px] text-lg font-[400] text-nowrap ${extraClass || ""}`}
+            className={`border px-4 py-2 capitalize rounded-[100px] text-lg font-[400] text-nowrap ${extraClass || ""}`}
             style={{
                 color: color,
                 borderColor: color,

@@ -7,6 +7,9 @@ import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import { UsePost } from '@/hooks/usePost';
 import toast from 'react-hot-toast';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { categoryTag } from '@/helpers/const';
+import { serverUrl } from '@/helpers/config';
 
 export default function CreateCategory() {
     // const [openModal, setOpenModal] = useState(false);
@@ -28,8 +31,10 @@ export default function CreateCategory() {
         console.log(response, 'response')
         if (response) {
             toast.success(response.message ?? `created ${values.title} successfully`)
-            setIsLoading(false)
             e.target.reset();
+            setIsLoading(false)
+            // revalidateTag(categoryTag)
+            // revalidatePath(`${serverUrl}/category`)
             setModalOpen(false);
         }
 
