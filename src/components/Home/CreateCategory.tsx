@@ -15,7 +15,8 @@ export default function CreateCategory() {
         e.preventDefault();
         const values = Object.fromEntries(new FormData(e.target))
         console.log('Form values:', values);
-        setModalOpen(false);
+        // setModalOpen(false);
+
     };
     return (
         <React.Fragment>
@@ -23,7 +24,7 @@ export default function CreateCategory() {
                 <ButtonPrimary text="Add Category" color='#FFFFFF'></ButtonPrimary>
             </p>
             <ModalUI isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-                <h2 className='text-2xl font-[500] '>Create Animal</h2>
+                <h2 className='text-2xl font-[500] '>Add Category</h2>
                 <form onSubmit={handleFormSubmit} className='px-2 py-3'>
                     <InputUI id='categoryName' label='Category Name' name='categoryName' />
                     <ButtonSubmit text='Save' color='white' bg='black' />

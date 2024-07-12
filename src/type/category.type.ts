@@ -1,4 +1,9 @@
-export type ICategory = { _id: string; title: string };
+import { IAnimal } from "./animal.type";
+import { ICommonDataType } from "./common.type";
 
+export type ICategory = ICommonDataType & {
+  title: string;
+  animals?: IAnimal[] | [];
+};
 
-// export type IModalValue = boolean | "category" | "animal" 
+// export type IModalValue = boolean | "category" | "animal"
