@@ -20,7 +20,7 @@ export default function CreateAnimal({ categoryData }: { categoryData: ICategory
     const [loading, setIsLoading] = useState(false)
     const options = categoryData?.map((category: ICategory) => ({ label: category.title, value: category._id }))
 
-    console.log(selectedValue, 'selectedValue')
+    // console.log(selectedValue, 'selectedValue')
 
     const handleFormSubmit = async (e: BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ export default function CreateAnimal({ categoryData }: { categoryData: ICategory
 
         try {
             const imageResponse = await uploadImage(image);
-            console.log("🚀 ", imageResponse)
+            // console.log("🚀 ", imageResponse)
 
 
             if (!imageResponse) {

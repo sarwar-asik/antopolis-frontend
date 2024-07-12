@@ -7,7 +7,7 @@ import CreateAnimal from './CreateAnimal'
 import { Toaster } from 'react-hot-toast'
 
 
-export default function CategorySection({ categoryData }: { categoryData: ICategory[] }) {
+export default function CategorySection({ categoryData, setSelectedCategoryId }: { categoryData: ICategory[], setSelectedCategoryId:any }) {
 
     // const categoryData: ICategory[] = [
     //     { _id: "11", title: "Bird" },
@@ -28,7 +28,7 @@ export default function CategorySection({ categoryData }: { categoryData: ICateg
                     {/* <ButtonPrimary text="Land Animal" color='#058F34'></ButtonPrimary> */}
                     {
                         categoryData?.map((category: ICategory, index: number) => (
-                            <ButtonPrimary text={category.title} color={index === 0 ? '#058F34' : '#EF0D0D'} width={index === 0 ? '140px' : '100px'} key={category?._id + index}></ButtonPrimary>
+                            <ButtonPrimary onClick={() => setSelectedCategoryId(category._id)}  text={category.title} color={index === 0 ? '#058F34' : '#EF0D0D'} width={index === 0 ? '140px' : '100px'} key={category?._id + index}></ButtonPrimary>
                         ))
                     }
                 </div>
