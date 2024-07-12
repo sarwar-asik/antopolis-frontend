@@ -5,17 +5,31 @@ import InputUI from '../Form/InputUI'
 import ButtonSubmit from '../Form/ButtonSubmitUI'
 import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
+import { UsePost } from '@/hooks/usePost';
 
 export default function CreateCategory() {
     // const [openModal, setOpenModal] = useState(false);
 
     const [isModalOpen, setModalOpen] = useState(false);
+    const [loading, setIsLoading] = useState(false)
 
     const handleFormSubmit = async (e: BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true)
         const values = Object.fromEntries(new FormData(e.target))
         console.log('Form values:', values);
         // setModalOpen(false);
+        const bodyData = {
+            title: values.title
+        }
+        // console.log(bodyData)
+        const response = await UsePost("/category", bodyData)
+        console.log(response, 'response')
+        if (response) {
+            setIsLoading(false)
+            e.target.reset();
+            setModalOpen(false);
+        }
 
     };
     return (
@@ -26,8 +40,10 @@ export default function CreateCategory() {
             <ModalUI isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
                 <h2 className='text-2xl font-[500] '>Add Category</h2>
                 <form onSubmit={handleFormSubmit} className='px-2 py-3'>
-                    <InputUI id='categoryName' label='Category Name' name='categoryName' />
-                    <ButtonSubmit text='Save' color='white' bg='black' />
+
+                    <InputUI id='title' label='Category Name' isRequired={true} name='title' />
+                    {/* loading button */}
+                    <ButtonSubmit text={`${loading ? "Saving..." : "Save"}`} color='white' bg='black' />
                 </form>
             </ModalUI>
         </React.Fragment>

@@ -10,6 +10,7 @@ interface FloatingLabelInputProps {
     className?: string;
     inputClassName?: string;
     labelClassName?: string;
+    isRequired?: boolean
 }
 export default function InputUI({
     id,
@@ -20,7 +21,8 @@ export default function InputUI({
     type = 'text',
     className = '',
     inputClassName = '',
-    labelClassName = ''
+    labelClassName = '',
+    isRequired = false
 }: FloatingLabelInputProps) {
     return (
         <div className={` py-2 my-3 ${className}`}>
@@ -30,6 +32,7 @@ export default function InputUI({
                 type={type}
                 value={value}
                 onChange={onChange}
+                required={isRequired}
                 className="rounded-lg border border-black  bg-[#F2F2F2] px-4 py-4 text-black  w-full  duration-200 outline-none placeholder:text-xl placeholder:text-slate-800"
                 placeholder={label}
             />
