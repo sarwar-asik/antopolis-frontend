@@ -5,6 +5,7 @@ import InputUI from '../Form/InputUI'
 import ButtonSubmit from '../Form/ButtonSubmitUI'
 import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function CreateAnimal() {
     // const [openModal, setOpenModal] = useState(false);
@@ -15,10 +16,12 @@ export default function CreateAnimal() {
         e.preventDefault();
         const values = Object.fromEntries(new FormData(e.target))
         console.log('Form values:', values);
-        setModalOpen(false);
+        // setModalOpen(false);
+        toast.success('Successfully toasted!')
     };
     return (
         <React.Fragment>
+          
             <p onClick={() => setModalOpen(true)}>
                 <ButtonPrimary text="Add Animal" color='#FFFFFF'></ButtonPrimary>
             </p>

@@ -6,6 +6,7 @@ import ButtonSubmit from '../Form/ButtonSubmitUI'
 import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import { UsePost } from '@/hooks/usePost';
+import toast from 'react-hot-toast';
 
 export default function CreateCategory() {
     // const [openModal, setOpenModal] = useState(false);
@@ -26,6 +27,7 @@ export default function CreateCategory() {
         const response = await UsePost("/category", bodyData)
         console.log(response, 'response')
         if (response) {
+            toast.success(response.message ?? `created ${values.title} successfully`)
             setIsLoading(false)
             e.target.reset();
             setModalOpen(false);
