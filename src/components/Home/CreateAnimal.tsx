@@ -22,6 +22,7 @@ export default function CreateAnimal({ categoryData, }: { categoryData: ICategor
     // console.log(selectedValue, 'selectedValue')
 
     // ! submit handler
+    // ! submit handler
     const handleFormSubmit = async (e: BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -31,36 +32,39 @@ export default function CreateAnimal({ categoryData, }: { categoryData: ICategor
             toast.error('Please upload an image');
             return;
         }
+
         if (selectedValue.value === "") {
             toast.error('Please select a category');
-            return
+            return;
         }
+
         setIsLoading(true);
         formData.append('category_id', selectedValue.value);
-        try {
 
-            console.log(formData, 'formData')
+        try {
+            console.log(formData, 'formData'); // Logging the FormData for debugging
             const responseAnimal = await postSSDataWithFile("/animal", formData);
+
             if (responseAnimal) {
-                await actionRevalidate(animalTag)   //! for refetch all animal data
+                await actionRevalidate(animalTag); // For refetching all animal data
                 setIsLoading(false);
-                toast.success(responseAnimal.message ?? `created Animal  successfully`);
-                e.target.reset();
-                setModalOpen(false);
+                toast.success(responseAnimal.message ?? `Created Animal successfully`);
+                e.target.reset(); // Resetting the form after successful submission
+                setModalOpen(false); // Closing the modal after successful submission
             } else {
                 setIsLoading(false);
-
             }
         } catch (error: any) {
-            // Handle error
-            console.error("Error creating animal:", error);
-            toast.error("Error creating animal:", error);
+            console.log("Error creating animal:", error);
+            toast.error("Error creating animal:", error.message ?? error);
             setIsLoading(false);
         }
     };
 
+
     //! post with file and body
- async function postSSDataWithFile(
+
+    async function postSSDataWithFile(
         url: string,
         formData: FormData,
         options = {} as RequestInit
@@ -69,17 +73,17 @@ export default function CreateAnimal({ categoryData, }: { categoryData: ICategor
             const response = await fetch(`${serverUrl}${url}`, {
                 method: "POST",
                 ...options,
-                body: formData, // FormData instance
+                body: formData, // FormData instance containing file and other data
             });
 
             if (!response.ok) {
                 throw new Error(`API request failed with status ${response.status}`);
             }
 
-            return await response.json();
+            return await response.json(); // Parsing JSON response from the server
         } catch (error) {
-            console.error("Error in usePostWithFile:", error);
-            throw error;
+            console.error("Error in postSSDataWithFile:", error);
+            throw error; // Propagate the error to the caller for handling
         }
     }
 

@@ -6,13 +6,19 @@ import { animalTag, categoryTag } from "@/helpers/const";
 
 //!  created for ssr
 async function UseFetchData(url: string, tagName: string[]) {
-  const res = await fetch(url, {
-    next: { tags: tagName },
-    cache: "no-store",
-  });
-  // console.log(res, "res");
-  const result = await res.json();
-  return result;
+  try {
+    const res = await fetch(url, {
+      next: { tags: tagName },
+      cache: "no-store",
+    });
+    // console.log(res, "res");
+    const result = await res.json();
+    return result;
+
+  } catch (error) {
+    console.log(error)
+
+  }
 }
 export default async function HomePage() {
 

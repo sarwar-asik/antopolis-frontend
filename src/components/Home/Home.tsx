@@ -1,5 +1,5 @@
 "use client"
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import CategorySection from './CategorySection'
 import { ICategory } from '@/type/category.type'
 import Animals from './Animals'
@@ -12,26 +12,43 @@ export interface HomeProps {
 
 export default function Home({ categoryData, animalAllResult }: HomeProps) {
 
-    const [animalData, setAnimalData] = useState<IAnimal[]>(animalAllResult?.data || []);
-    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>('all');
+    // ! select category declared parents for refetch Data 
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>("all");
+
+    const [animalData, setAnimalData] = useState<any[]>(animalAllResult?.data);
+    // console.log(selectedCategoryId)
+
 
     useEffect(() => {
-        setAnimalData(animalAllResult?.data || []);
-    }, [animalAllResult?.data]);
+        async function fetchAnimalData() {
+            if (selectedCategoryId) {
+                if (selectedCategoryId === 'all') {
+                    // console.log('yes')
+                    setAnimalData(animalAllResult?.data);
+                }
+                else {
+                    const response = await fetch(`${serverUrl}/animal/${selectedCategoryId}`)
+                    const result = await response.json();
+                    setAnimalData(result.data);
+                }
 
-    const handleCategoryChange = useCallback((categoryId: string | null) => {
-        setSelectedCategoryId(categoryId);
-    }, []);
+            }
+        }
 
-    const filteredAnimalData = useMemo(() => {
-        if (selectedCategoryId === 'all') return animalData;
-        return animalData.filter(animal => animal.category_id === selectedCategoryId);
-    }, [animalData, selectedCategoryId]);
+        fetchAnimalData();
+    }, [animalAllResult?.data, selectedCategoryId]);
+
+    // const handleCategoryChange = (categoryId: string) => {
+    //     setSelectedCategoryId(categoryId);
+    // }
+
+
+    // console.log(animalData?.length, "and", animalData)
 
     return (
         <div className=''>
-            <CategorySection categoryData={categoryData.data} onCategoryChange={handleCategoryChange} />
-            <Animals animalData={filteredAnimalData} />
+            <CategorySection categoryData={categoryData?.data} setSelectedCategoryId={setSelectedCategoryId} />
+            <Animals animalData={animalData} />
         </div>
     )
 }
