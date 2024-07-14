@@ -5,14 +5,12 @@ import InputUI from '../Form/InputUI'
 import ButtonSubmit from '../Form/ButtonSubmitUI'
 import ModalUI from '../UI/ModalUI';
 import ButtonPrimary from '../UI/ButtonPrimary';
-import { UsePost } from '@/hooks/usePost';
 import toast from 'react-hot-toast';
-import { revalidatePath, revalidateTag } from 'next/cache';
 import { categoryTag } from '@/helpers/const';
-import { serverUrl } from '@/helpers/config';
+import { actionRevalidate, postSSData } from '@/app/action';
 
 export default function CreateCategory() {
-    // const [openModal, setOpenModal] = useState(false);
+
 
     const [isModalOpen, setModalOpen] = useState(false);
     const [loading, setIsLoading] = useState(false)
@@ -22,19 +20,20 @@ export default function CreateCategory() {
         setIsLoading(true)
         const values = Object.fromEntries(new FormData(e.target))
         console.log('Form values:', values);
-        // setModalOpen(false);
+
         const bodyData = {
             title: values.title
         }
-        // console.log(bodyData)
-        const response = await UsePost("/category", bodyData)
+
+
+        const response = await postSSData("/category", bodyData)
         console.log(response, 'response')
         if (response) {
+            await actionRevalidate(categoryTag)
             toast.success(response.message ?? `created ${values.title} successfully`)
             e.target.reset();
             setIsLoading(false)
-            // revalidateTag(categoryTag)
-            // revalidatePath(`${serverUrl}/category`)
+
             setModalOpen(false);
         }
 

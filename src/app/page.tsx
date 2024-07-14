@@ -1,30 +1,33 @@
-import Animals from "@/components/Home/Animals";
-import HomePage from "@/components/Home/Home";
+import Home from "@/components/Home/Home";
 import { serverUrl } from "@/helpers/config";
-import { categoryTag } from "@/helpers/const";
-import { ICategory } from "@/type/category.type";
+import { animalTag, categoryTag } from "@/helpers/const";
 
 
-async function getCategoryData() {
-  const res = await fetch(`${serverUrl}/category`, { next: { tags: [categoryTag] }, cache: 'no-store' })
-  const result = res.json()
-  return result
+
+//!  created for ssr
+async function UseFetchData(url: string, tagName: string[]) {
+  const res = await fetch(url, {
+    next: { tags: tagName },
+    cache: "no-store",
+  });
+  // console.log(res, "res");
+  const result = await res.json();
+  return result;
 }
+export default async function HomePage() {
 
 
+  //! my reuseable server side hook for fetch data
+  const categoryResult = await UseFetchData(`${serverUrl}/category`, [categoryTag]);
+  const animalAllResult = await UseFetchData(`${serverUrl}/animal/all`, [animalTag]);
 
-async function getAnimalData(params: string) {
 
-}
-export default async function Home() {
-
-  const categoryResult = await getCategoryData();
-  
 
   // console.log(categoryData)
   return (
     <main className="container mx-auto min-h-screen py-[5rem] px-3">
-      <HomePage categoryData={categoryResult}></HomePage>
+      {/* //! separated the Home bcz of SSR data fetch */}
+      <Home categoryData={categoryResult} animalAllResult={animalAllResult}></Home>
     </main>
   );
 }

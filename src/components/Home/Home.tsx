@@ -1,41 +1,37 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import CategorySection from './CategorySection'
 import { ICategory } from '@/type/category.type'
 import Animals from './Animals'
 import { serverUrl } from '@/helpers/config'
-
+import { IAnimal } from '@/type/animal.type'
 export interface HomeProps {
     categoryData: { data: ICategory[] };
+    animalAllResult: { data: IAnimal[] }
 }
-async function getAnimalData(categoryId: string | null) {
-    const res = await fetch(`${serverUrl}/animal/${categoryId}`, {
-        next: { tags: ['animal'] },
-        cache: 'no-store'
-    });
-    console.log(res, "res")
-    const result = await res.json();
-    return result;
-}
-export default function HomePage({ categoryData }: HomeProps) {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>("all");
-    const [animalData, setAnimalData] = useState<any[]>([]);
-    console.log(selectedCategoryId)
-    useEffect(() => {
-        async function fetchAnimalData() {
-            if (selectedCategoryId) {
-                const animalResult = await getAnimalData(selectedCategoryId);
-                setAnimalData(animalResult.data);
-            }
-        }
-        fetchAnimalData();
-    }, [selectedCategoryId]);
 
-    console.log(animalData.length, "and", animalData)
+export default function Home({ categoryData, animalAllResult }: HomeProps) {
+
+    const [animalData, setAnimalData] = useState<IAnimal[]>(animalAllResult?.data || []);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>('all');
+
+    useEffect(() => {
+        setAnimalData(animalAllResult?.data || []);
+    }, [animalAllResult?.data]);
+
+    const handleCategoryChange = useCallback((categoryId: string | null) => {
+        setSelectedCategoryId(categoryId);
+    }, []);
+
+    const filteredAnimalData = useMemo(() => {
+        if (selectedCategoryId === 'all') return animalData;
+        return animalData.filter(animal => animal.category_id === selectedCategoryId);
+    }, [animalData, selectedCategoryId]);
+
     return (
-        <div>
-            <CategorySection categoryData={categoryData.data} setSelectedCategoryId={setSelectedCategoryId} />
-            <Animals animalData={animalData} />
+        <div className=''>
+            <CategorySection categoryData={categoryData.data} onCategoryChange={handleCategoryChange} />
+            <Animals animalData={filteredAnimalData} />
         </div>
     )
 }

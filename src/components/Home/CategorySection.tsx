@@ -7,14 +7,9 @@ import CreateAnimal from './CreateAnimal'
 import { Toaster } from 'react-hot-toast'
 
 
-export default function CategorySection({ categoryData, setSelectedCategoryId }: { categoryData: ICategory[], setSelectedCategoryId:any }) {
+export default function CategorySection({ categoryData, onCategoryChange }: { categoryData: ICategory[], onCategoryChange: any }) {
 
-    // const categoryData: ICategory[] = [
-    //     { _id: "11", title: "Bird" },
-    //     { _id: "22", title: "Fist" },
-    //     { _id: "3", title: "Insect" },
-    // ]
-    // console.log(console.log(categoryData))
+
     return (
         <React.Fragment >
 
@@ -22,18 +17,18 @@ export default function CategorySection({ categoryData, setSelectedCategoryId }:
                 position="top-center"
                 reverseOrder={false}
             />
-            <div className="flex justify-between gap-3">
-                {/* category Section */}
-                <div className="flex justify-between gap-2 flex-wrap">
-                    {/* <ButtonPrimary text="Land Animal" color='#058F34'></ButtonPrimary> */}
+            <div className="flex justify-between gap-4">
+                {/* category list Section */}
+                <div className="flex justify-between gap-1  flex-wrap">
+
                     {
                         categoryData?.map((category: ICategory, index: number) => (
-                            <ButtonPrimary onClick={() => setSelectedCategoryId(category._id)}  text={category.title} color={index === 0 ? '#058F34' : '#EF0D0D'} width={index === 0 ? '140px' : '100px'} key={category?._id + index}></ButtonPrimary>
+                            <ButtonPrimary onClick={() => onCategoryChange(category._id)} text={category.title} color={index === 0 ? '#058F34' : '#EF0D0D'} width={index === 0 ? '140px' : '100px'} key={category?._id + index}></ButtonPrimary>
                         ))
                     }
                 </div>
-                {/* add section */}
-                <div className="flex gap-2">
+                {/* add modal and section */}
+                <div className="flex gap-2 flex-wrap justify-between">
 
                     <CreateCategory />
                     <CreateAnimal categoryData={categoryData} />

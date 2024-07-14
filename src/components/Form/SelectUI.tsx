@@ -24,7 +24,7 @@ const SelectUI: React.FC<SelectProps> = ({ options, label, onValueChange, setSel
     return (
         <div>
             {/* dropdown - btn */}
-            <div onClick={() => setIsOpen(!isOpen)} className="mx-auto flex w-full items-center justify-between rounded-xl bg-white px-6 py-3 border border-black">
+            <div onClick={() => setIsOpen(!isOpen)} className="mx-auto flex w-full items-center justify-between my-2 rounded-xl bg-white px-6 py-3 border border-black">
                 <h1 className="font-medium text-black">{selectedValue.label}</h1>
                 <svg className={`${isOpen ? '-rotate-180' : 'rotate-0'} duration-300`} width={25} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g strokeWidth="0"></g>
@@ -35,13 +35,13 @@ const SelectUI: React.FC<SelectProps> = ({ options, label, onValueChange, setSel
                 </svg>
             </div>
 
-            <div className={`${isOpen ? 'visible top-0 opacity-100' : 'invisible -top-4 opacity-0'} relative mx-auto my-4 w-72 rounded-xl py-4 border duration-300`}>
+            {isOpen && <div className={`${isOpen ? 'visible top-0 opacity-100' : 'invisible -top-3 opacity-0'} relative mx-auto mb-3  w-72 rounded-xl  border duration-300 bg-slate-100`}>
                 {options?.map((option, idx) => (
-                    <div key={idx} onClick={() => handleOptionClick(option)} className="px-6 py-2 text-gray-500 hover:bg-gray-100">
+                    <div key={idx} onClick={() => handleOptionClick(option)} className="px-6 py-2 border-y text-gray-600 hover:bg-gray-100">
                         {option.label}
                     </div>
                 ))}
-            </div>
+            </div>}
         </div>
     );
 };
