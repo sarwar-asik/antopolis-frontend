@@ -17,7 +17,7 @@ export default function CategorySection({ categoryData, setSelectedCategoryId }:
                 position="top-center"
                 reverseOrder={false}
             />
-            <div className="flex justify-between gap-4">
+            <div className="flex justify-between gap-4 mt-[100px]">
                 {/* category list Section */}
                 <div className="flex justify-between  flex-wrap gap-2">
 
